@@ -1,4 +1,4 @@
-![Spinel Framework](https://cdn.discordapp.com/attachments/1128107427473149994/1177763501511561327/image.png?ex=6573b0bc&is=65613bbc&hm=62387480592fcbe6cabffcec486ad85982a59edd58407ad072b1e978f642c872&)
+![Spinel Framework](https://ibb.co/vBH9rC6)
 
 # Spinel Framework
 
