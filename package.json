@@ -4,7 +4,7 @@
   "description": "A beginner-friendly framework for developing discord bots",
   "main": "dist/index.js",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@johmvazguz"
+    "registry": "https://npm.pkg.github.com/@just.vazguz"
   },
   "scripts": {
     "build": "tsc --build"
