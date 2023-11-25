@@ -74,20 +74,3 @@ export class ExampleCommand extends SpinelCommand {
   }
 }
 ```
-
-Making a basic listener:
-
-```ts
-import { Listener } from "@welfare-systems/spinel-framework";
-
-export class MyListener extends Listener {
-  public constructor(options: Listener.Options) {
-    super(context, {
-      ...options,
-      once: true,
-      event: "ready",
-      emitter: "myEmitter",
-    });
-  }
-}
-```

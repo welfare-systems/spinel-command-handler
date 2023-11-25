@@ -35,13 +35,18 @@ export class CommandHandler {
    */
   public token: string;
 
+  /**
+   * The client ID
+   */
+  public clientId: string;
+
   public constructor(client: SpinelClient, options: CommandHandlerOptions) {
     this.client = client;
     this.directory = options.directory;
     this.guildId = options.guildId;
     this.token = options.token;
     this.privateRegister = options.privateRegister;
-
+    this.clientId = options.clientId;
     this.setup();
   }
 
@@ -56,9 +61,7 @@ export class CommandHandler {
   }
 
   private getCommandFolderNames(directory: string): string[] {
-    return fs
-      .readdirSync(directory)
-      .filter((file) => ALLOWED_EXTENSIONS.some((ext) => file.endsWith(ext)));
+    return fs.readdirSync(directory);
   }
 
   private async processCommandFolder(
@@ -78,15 +81,9 @@ export class CommandHandler {
     file: string
   ): Promise<void> {
     const filePath = path.join(commandsPath, file);
-    const { default: commandExport } = await import(filePath);
-
-    if (
-      typeof commandExport !== "object" ||
-      !(commandExport.data instanceof SpinelCommand)
-    ) {
-      console.warn(`[WARNING] >> Invalid export in ${filePath}`);
-      return;
-    }
+    //@ts-ignore
+    const commandClass = yield require.resolve(filePath);
+    const commandExport = new commandClass();
 
     this.client.SlashCommands.set(
       commandExport.getBuilder().name,
@@ -103,10 +100,6 @@ export class CommandHandler {
     const rest = new REST().setToken(token);
 
     try {
-      if (!this.client.user) {
-        throw new Error("Client user is not defined.");
-      }
-
       let data: any;
       if (this.privateRegister) {
         if (!guildId) {
@@ -116,14 +109,14 @@ export class CommandHandler {
         }
         data = await rest.put(
           Routes.applicationGuildCommands(
-            this.client.user.id as Snowflake,
+            this.clientId as Snowflake,
             guildId as Snowflake
           ),
           { body: this.commands }
         );
       } else {
         data = await rest.put(
-          Routes.applicationCommands(this.client.user.id as Snowflake),
+          Routes.applicationCommands(this.clientId as Snowflake),
           { body: this.commands }
         );
       }
@@ -146,7 +139,8 @@ export class CommandHandler {
 
     this.client.on("interactionCreate", async (i) => {
       if (i.isCommand()) {
-        const command: any = this.client.SlashCommands.get(i.commandName);
+        const commandClass: any = this.client.SlashCommands.get(i.commandName);
+        const command = new commandClass();
         if (!command) return;
         try {
           await command.execute(i);
@@ -167,4 +161,5 @@ export type CommandHandlerOptions = {
   privateRegister: boolean;
   guildId?: string;
   token: string;
+  clientId: string;
 };

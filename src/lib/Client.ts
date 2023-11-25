@@ -1,13 +1,10 @@
 import { Client, ClientOptions, Collection } from "discord.js";
 import { CommandHandler } from "./handlers/CommandHandler";
-import { ListenerHandler } from "./handlers/ListenerHandler";
 
 import type { CommandHandlerOptions } from "./handlers/CommandHandler";
-import type { ListenerHandlerOptions } from "./handlers/ListenerHandler";
 
 export interface SpinelClientOptions {
   commandHandlerOptions: CommandHandlerOptions;
-  listenerHandlerOptions: ListenerHandlerOptions;
 }
 
 export class SpinelClient<
@@ -30,18 +27,17 @@ export class SpinelClient<
         directory: this.options.commandHandlerOptions.directory,
         token: this.options.commandHandlerOptions.token,
         privateRegister: true,
+        clientId: this.options.commandHandlerOptions.clientId,
+        guildId: this.options.commandHandlerOptions.guildId,
       });
     } else {
       await new CommandHandler(this, {
         directory: this.options.commandHandlerOptions.directory,
         token: this.options.commandHandlerOptions.token,
         privateRegister: false,
+        clientId: this.options.commandHandlerOptions.clientId,
       });
     }
-
-    await new ListenerHandler(this, {
-      directory: this.options.listenerHandlerOptions.directory,
-    });
 
     return await super.login(token);
   }
