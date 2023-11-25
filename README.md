@@ -1,4 +1,4 @@
-![Spinel Framework](https://ibb.co/vBH9rC6)
+[![spinel-new-removebg-preview.png](https://i.postimg.cc/htSYYvcQ/spinel-new-removebg-preview.png)](https://postimg.cc/6ymz297B)
 
 # Spinel Framework
 
