@@ -1,0 +1,22 @@
+{
+  "name": "@welfare-systems/spinel-framework",
+  "version": "0.0.1",
+  "description": "A beginner-friendly framework for developing discord bots",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "keywords": ["discord", "discord.js", "javascript", "typescript", "bots", "framework"],
+  "author": "Jonathan Vazquez",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/welfare-systems/spinel-framework"
+  }
+}
