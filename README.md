@@ -1,8 +1,8 @@
 [![spinel-new-removebg-preview.png](https://i.postimg.cc/htSYYvcQ/spinel-new-removebg-preview.png)](https://postimg.cc/6ymz297B)
 
-# Spinel Framework
+# Spinel Command Handler
 
-A beginner-friendly framework written in TypeScript and Discord.JS
+A beginner-friendly command handler written in TypeScript and Discord.JS
 
 ## Features
 
